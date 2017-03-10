@@ -9,4 +9,7 @@ class Agent1(Agent):
         pass
 
     def get_action(self, observation):
-        return self.GIVE
+        if (observation == self.HEADS):
+            return self.KEEP
+        else:
+            return self.GIVE

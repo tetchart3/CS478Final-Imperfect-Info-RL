@@ -9,4 +9,4 @@ class Agent2(Agent):
         pass
 
     def get_action(self, observation):
-        return self.HEADS
+        return self.TAILS
