@@ -1,8 +1,7 @@
-import numpy as np
 
-class Agent:
+class Agent(object):
 
-    def __init__(self, player1):
+    def __init__(self):
         # player1 is bool
         self.KEEP = 0
         self.GIVE = 1
@@ -13,10 +12,10 @@ class Agent:
         # Define for each player
         pass
 
-    def learn(self, score, action):
+    def learn(self, score_delta):
         # score is number
         pass
 
     def get_action(self, observation):
-        # observation is bool
+        # observation is number
         return # int
