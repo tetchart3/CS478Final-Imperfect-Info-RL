@@ -9,4 +9,6 @@ class Agent2(Agent):
         pass
 
     def get_action(self, observation):
-        return self.TAILS
+        self.HEADS = 0
+        self.TAILS = 1
+        self.FORFEIT = 2
