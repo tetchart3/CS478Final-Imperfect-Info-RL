@@ -12,10 +12,16 @@ class Agent(object):
         # Define for each player
         pass
 
-    def learn(self, score_delta):
+    def learn(self, observation, action_taken_by_this_agent, score_delta, next_observation):
         # score is number
         pass
 
     def get_action(self, observation):
         # observation is number
         return # int
+
+
+# agent1: observation = [total_score, heads_or_tails]
+# agent2: observation = [total_score, keep_or_give]
+
+# experiment_replay = (observation, action_taken_by_this_agent, score_delta, next_observation)
