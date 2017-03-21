@@ -17,12 +17,12 @@ class Game(object):
 
     def play_round(self):
         toss = self.flip()
-        action = self.player1.get_action(toss)
+        action = self.player1.get_action([self.score, toss])
         if (action == self.player1.KEEP):
-            self.player2.get_action(action)
+            self.player2.get_action([self.score, action])
             score_delta = self.keepScores[toss]
         else:
-            response = self.player2.get_action(action)
+            response = self.player2.get_action([self.score, action])
             if (response == self.player2.FORFEIT):
                 score_delta = -.5
             elif (response == toss):
@@ -33,6 +33,8 @@ class Game(object):
         self.player2.learn(score_delta)
         self.score += score_delta
         return self.score
+
+        # (prev_total_score, action_taken_by_this_agent, score_delta)
 
 
     def flip(self):

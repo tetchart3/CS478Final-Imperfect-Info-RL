@@ -10,10 +10,10 @@ class Prob_Agent2(Agent):
         pass
 
     def get_action(self, observation):
-        if (observation == self.KEEP):
+        if (observation[1] == self.KEEP):
             return self.FORFEIT
-        elif (observation == self.GIVE):
-                h = .3
-                t = .6
-                f = .1
-        return np.random.choice([self.HEADS, self.TAILS, self.FORFEIT], p=[h, t, f])
+        elif (observation[1] == self.GIVE):
+            h = .3
+            t = .6
+            f = .1
+            return np.random.choice([self.HEADS, self.TAILS, self.FORFEIT], p=[h, t, f])

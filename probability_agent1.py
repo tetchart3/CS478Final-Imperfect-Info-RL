@@ -10,7 +10,7 @@ class Prob_Agent1(Agent):
         pass
 
     def get_action(self, observation):
-        if (observation == self.HEADS):
+        if (observation[1] == self.HEADS):
             k = .7
             g = .3
         else:

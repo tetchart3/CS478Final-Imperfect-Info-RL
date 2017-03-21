@@ -12,7 +12,7 @@ class Agent(object):
         # Define for each player
         pass
 
-    def learn(self, observation, action_taken_by_this_agent, score_delta, next_observation):
+    def learn(self, prev_total_score, action_taken_by_this_agent, score_delta):
         # score is number
         pass
 
