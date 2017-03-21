@@ -6,7 +6,7 @@ class Prob_Agent2(Agent):
     def __init__(self):
         super(Prob_Agent2, self).__init__()
 
-    def learn(self, score_delta):
+    def learn(self, prev_total_score, action_taken_by_this_agent, score_delta):
         pass
 
     def get_action(self, observation):

@@ -19,7 +19,7 @@ class Game(object):
         toss = self.flip()
         action = self.player1.get_action([self.score, toss])
         if (action == self.player1.KEEP):
-            self.player2.get_action([self.score, action])
+            response = self.player2.get_action([self.score, action])
             score_delta = self.keepScores[toss]
         else:
             response = self.player2.get_action([self.score, action])
@@ -29,8 +29,8 @@ class Game(object):
                 score_delta = -1
             else:
                 score_delta = 1
-        self.player1.learn(score_delta)
-        self.player2.learn(score_delta)
+        self.player1.learn(self.score, action, score_delta)
+        self.player2.learn(self.score, response, score_delta)
         self.score += score_delta
         return self.score
 
