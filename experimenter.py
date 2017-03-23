@@ -6,12 +6,13 @@ from simple_agent1 import Agent1
 from simple_agent2 import Agent2
 from probability_agent1 import Prob_Agent1
 from probability_agent2 import Prob_Agent2
+from bayes_agent1 import Bayes_Agent1
 from bayes_agent2 import Bayes_Agent2
 
 class Experimenter(object):
 
     def __init__(self, rounds = 10, graph = False):
-        self.agent1 = Prob_Agent1()
+        self.agent1 = Bayes_Agent1()
         self.agent2 = Bayes_Agent2()
         self.g = Game(self.agent1, self.agent2)
         self.rounds = rounds;

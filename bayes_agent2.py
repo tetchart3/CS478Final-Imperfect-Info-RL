@@ -9,19 +9,13 @@ class Bayes_Agent2(Agent):
         # prior to be 50/50
         self.prior_heads = .5
 
-        # Init counts at 1 for laplacian smoothing
-        self.total_rounds = 1
+        # Init counts at 1 for laplacian smoothing1
         self.gives = 1
         self.heads_given_gives = 1
-
-        # Assume that the probability if
-        # player 1 keeps is 50/50
-        self.gives_given_heads = .5
 
 
     def learn(self, prev_total_score, action_taken_by_this_agent, score_delta):
         # Update the counts
-        self.total_rounds += 1
         if action_taken_by_this_agent != self.FORFEIT:
             self.gives += 1
         if action_taken_by_this_agent == self.HEADS:
@@ -31,15 +25,15 @@ class Bayes_Agent2(Agent):
             if score_delta == 1.0:
                 self.heads_given_gives += 1
 
-        print("Gives", self.gives)
-        print("H|G", self.heads_given_gives)
-
         # Update prior
         self.prior_heads = self.heads_given_gives / (1.0 * self.gives)
 
+        print("Gives", self.gives)
+        print("H|G", self.heads_given_gives)
+        print("Probs_Heads", self.prior_heads)
+
 
     def get_action(self, observation):
-        print(self.prior_heads)
         if (observation[1] == self.KEEP):
             return self.FORFEIT
         elif (observation[1] == self.GIVE):
