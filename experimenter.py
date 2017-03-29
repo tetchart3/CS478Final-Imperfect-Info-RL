@@ -8,12 +8,13 @@ from probability_agent1 import Prob_Agent1
 from probability_agent2 import Prob_Agent2
 from bayes_agent1 import Bayes_Agent1
 from bayes_agent2 import Bayes_Agent2
+from qlearner_agent2_derek import QLearnerAgent2Derek
 
 class Experimenter(object):
 
     def __init__(self, rounds = 10, graph = False):
-        self.agent1 = Bayes_Agent1()
-        self.agent2 = Bayes_Agent2()
+        self.agent1 = Prob_Agent1()
+        self.agent2 = QLearnerAgent2Derek()
         self.g = Game(self.agent1, self.agent2)
         self.rounds = rounds;
         self.graph = graph
@@ -40,7 +41,7 @@ def main():
     parser.add_argument('-R', '--rounds', required=False, type=int, help='Pass the number of rounds you would like to see played')
     parser.add_argument('-G', '--graph', required=False, action='store_true', help='If included, this flag will print a graph of the score after each round')
     args = parser.parse_args()
-    rounds = 10
+    rounds = 10000
     if (args.rounds):
         rounds = args.rounds
     graph = False
