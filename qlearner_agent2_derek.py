@@ -9,6 +9,7 @@ class QLearnerAgent2Derek(Agent):
     ACTION_SPACE = 3 #2 if don't want it to be able to forfeit
 
     learning_rate = .01
+    alpha = 1
     gamma = .8
     step = 0
     guesses = {0: 0, 1: 0, 2:0}
@@ -40,6 +41,12 @@ class QLearnerAgent2Derek(Agent):
         #indepedent observations, so just update table
         self.Q[self.observation, action_taken_by_this_agent] = self.Q[self.observation, action_taken_by_this_agent] + \
                 self.learning_rate * (score_delta - self.Q[self.observation,action_taken_by_this_agent])
+
+        #nondeterministic update table using formula from class slides
+        # self.Q[self.observation, action_taken_by_this_agent] = (1-self.alpha) * self.Q[self.observation, action_taken_by_this_agent] + \
+        #         (self.alpha * (score_delta + self.Q[self.observation, action_taken_by_this_agent]))
+        # if self.alpha > .01:
+        #     self.alpha -= .01
 
     def get_action(self, observation):
         
