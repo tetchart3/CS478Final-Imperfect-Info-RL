@@ -13,8 +13,8 @@ from qlearner_agent2_derek import QLearnerAgent2Derek
 class Experimenter(object):
 
     def __init__(self, rounds = 10, graph = False):
-        self.agent1 = Prob_Agent1()
-        self.agent2 = QLearnerAgent2Derek()
+        self.agent1 = Bayes_Agent1()
+        self.agent2 = Prob_Agent2()
         self.g = Game(self.agent1, self.agent2)
         self.rounds = rounds;
         self.graph = graph
