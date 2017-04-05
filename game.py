@@ -24,7 +24,7 @@ class Game(object):
         else:
             response = self.player2.get_action([self.score, action])
             if (response == self.player2.FORFEIT):
-                score_delta = -.5
+                score_delta = .5
             elif (response == toss):
                 score_delta = -1
             else:
