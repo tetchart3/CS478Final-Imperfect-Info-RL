@@ -6,11 +6,11 @@ from keras.layers import Dense
 from keras.initializers import TruncatedNormal
 from keras.optimizers import SGD
 
-class QLearning_Agent2(Agent):
+class QLearning_Agent1(Agent):
 
     def __init__(self):
-        super(QLearning_Agent2, self).__init__()
-        self.ACTIONS = 3
+        super(QLearning_Agent1, self).__init__()
+        self.ACTIONS = 2
         self.GAMMA = 0.95
         self.OBSERVE = 5000
         self.EPSILON = .005
@@ -19,7 +19,9 @@ class QLearning_Agent2(Agent):
         self.INPUT_DIM = 2
         self.LEARNING_RATE = .2
         self.observation = None
+        self.num_states_observed = 0
         self.memory = []
+
         self.create_model()
 
     def create_model(self):
@@ -76,12 +78,13 @@ class QLearning_Agent2(Agent):
 
         self.observation = observation
 
-        if random.random() < self.EPSILON:
+        if random.random() < self.EPSILON or self.num_states_observed < self.OBSERVE:
             action = self.get_random_action()
         else:
             q = self.model.predict(np.array(observation).reshape(-1, len(observation)))
+            print('q: ',q)
             action = int(np.argmax(q[0]))
-
+        self.num_states_observed += 1
         return action
 
 # agent1: observation = [total_score, heads_or_tails]
