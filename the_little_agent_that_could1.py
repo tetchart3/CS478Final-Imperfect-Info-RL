@@ -12,11 +12,11 @@ class QLearning_Agent1(Agent):
         super(QLearning_Agent1, self).__init__()
         self.ACTIONS = 2
         self.GAMMA = 0.95
-        self.OBSERVE = 5000
+        self.OBSERVE = 100
         self.EPSILON = .005
-        self.REPLAY_MEMORY = 5000
-        self.BATCH = 10
-        self.INPUT_DIM = 2
+        self.REPLAY_MEMORY = 200
+        self.BATCH = 20
+        self.INPUT_DIM = 1
         self.LEARNING_RATE = .2
         self.observation = None
         self.num_states_observed = 0
@@ -26,10 +26,10 @@ class QLearning_Agent1(Agent):
 
     def create_model(self):
         model = Sequential()
-        model.add(Dense(12, kernel_initializer=TruncatedNormal(mean=0.0, stddev=0.01), activation='relu', input_shape = (self.INPUT_DIM,)))
-        model.add(Dense(8, kernel_initializer=TruncatedNormal(mean=0.0, stddev=0.01), activation='relu'))
-        model.add(Dense(self.ACTIONS, kernel_initializer=TruncatedNormal(mean=0.0, stddev=0.01), activation='sigmoid'))
-        model.compile(loss='categorical_crossentropy', optimizer=SGD(lr=self.LEARNING_RATE), metrics=['accuracy'])
+        model.add(Dense(4, kernel_initializer=TruncatedNormal(mean=0.0, stddev=0.01), activation='tanh', input_shape = (self.INPUT_DIM,)))
+        model.add(Dense(8, kernel_initializer=TruncatedNormal(mean=0.0, stddev=0.01), activation='tanh'))
+        model.add(Dense(self.ACTIONS, kernel_initializer=TruncatedNormal(mean=0.0, stddev=0.01)))
+        model.compile(loss='mean_absolute_error', optimizer='rmsprop', metrics=['accuracy'])
         self.model = model
 
     def get_random_action(self):
@@ -66,13 +66,15 @@ class QLearning_Agent1(Agent):
         batch = self.get_batch()
         if (len(batch) > 0):
             inputs, targets = batch
+            #print('i: ', inputs)
+            #print('t', targets)
             self.model.train_on_batch(inputs, targets)
 
     def get_action(self, observation):
 
         if self.observation != None:
             self.last_observation = self.observation
-            self.memory.append(np.concatenate([self.last_observation, [self.action], [self.reward], observation]))
+            self.memory.append(np.concatenate([[self.last_observation[1]], [self.action], [self.reward], [observation[1]]]))
             if self.REPLAY_MEMORY > 0 and len(self.memory) > self.REPLAY_MEMORY:
                 self.memory.pop(0)
 
@@ -81,7 +83,8 @@ class QLearning_Agent1(Agent):
         if random.random() < self.EPSILON or self.num_states_observed < self.OBSERVE:
             action = self.get_random_action()
         else:
-            q = self.model.predict(np.array(observation).reshape(-1, len(observation)))
+            q = self.model.predict(np.array(observation[1]).reshape(-1, self.INPUT_DIM))
+            print('o: ',self.observation[1])
             print('q: ',q)
             action = int(np.argmax(q[0]))
         self.num_states_observed += 1
