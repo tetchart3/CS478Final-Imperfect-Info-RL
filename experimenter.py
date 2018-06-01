@@ -9,11 +9,12 @@ from probability_agent2 import Prob_Agent2
 from bayes_agent1 import Bayes_Agent1
 from bayes_agent2 import Bayes_Agent2
 from qlearner_agent2_derek import QLearnerAgent2Derek
+from the_little_agent_that_could1 import QLearning_Agent1
 
 class Experimenter(object):
 
     def __init__(self, rounds = 10, graph = False):
-        self.agent1 = Bayes_Agent1()
+        self.agent1 = QLearning_Agent1()
         self.agent2 = Prob_Agent2()
         self.g = Game(self.agent1, self.agent2)
         self.rounds = rounds;
